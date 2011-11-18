@@ -32,6 +32,9 @@
 		
 		$mygroup->owner_guid = $who_guid;
 		$mygroup->save();
+		
+		system_message(elgg_echo('group_operators:owner_changed', array($who->name)));
+	} else {
+		register_error(elgg_echo('group_operators:change_owner:error'));
 	}
 	forward(REFERER);
-?>

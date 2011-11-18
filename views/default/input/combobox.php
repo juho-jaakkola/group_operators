@@ -16,7 +16,7 @@
  * @uses $vars['class']          Additional CSS class
  */
 
-echo elgg_view('input/pulldown',$vars);
+echo elgg_view('input/dropdown',$vars);
 
 if($vars['id']):
 	elgg_load_js('jquery-combobox');

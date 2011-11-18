@@ -23,6 +23,11 @@
 		"group_operators:new:instructions" => 'Write or select the name of the member of the group to make him operator.',
 		"group_operators:new:button" => 'Make operator',
 		"group_operators:selectone" => 'select one...',
+		"group_operators:added" => '%s successfully added as group operator',
+		"group_operatros:add:error" => 'It was impossible to add %s as group operator',
+		"group_operators:owner_changed" => '%s is the new owner',
+		"group_operators:change_owner:error" => 'Only the group owner can assign a new owner',
+		"group_operators:removed" => 'Operator successfully removed',
 
 	);
 	
