@@ -23,7 +23,7 @@ elgg_set_context('groups');
 
 elgg_push_breadcrumb(elgg_echo('group'), "groups/all");
 elgg_push_breadcrumb($group->name, $group->getURL());
-elgg_push_breadcrumb($title);
+elgg_push_breadcrumb(elgg_echo("group_operators:operators"));
 
 $title = sprintf(elgg_echo("group_operators:title"), $group->name);
 
