@@ -16,7 +16,7 @@ function get_group_operators($group){
 	if($group instanceof ElggGroup){
 		$operators = elgg_get_entities_from_relationship(
 			array('types'=>'user', 'limit'=>0, 'relationship_guid'=>$group->guid, 'relationship'=>'operator', 'inverse_relationship'=>true));
-		$group_owner = get_entity($group->getOwner());
+		$group_owner = get_entity($group->getOwnerGUID());
 
 		if(!in_array($group_owner, $operators)){
 			$operators[$group_owner->guid] = $group_owner;
