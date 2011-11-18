@@ -33,6 +33,10 @@
 	width: 200px;
 }
 
+.ui-autocomplete-input:focus {
+	border: 1px solid #DDDDDD;
+}
+
 .ui-autocomplete {
 	padding: 0px;
 	border: 1px solid black;
@@ -75,7 +79,7 @@
 
 .ui-autocomplete .ui-state-hover {
 	background-color: #4690D6;
-	color: white;
+	color: white !important;
 	text-decoration: none;
 }
 
