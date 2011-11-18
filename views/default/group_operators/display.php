@@ -15,23 +15,17 @@ $icon = elgg_view_entity_icon($entity, $size);
 
 $title = "<a href=\"" . $entity->getUrl() . "\" $rel>" . $entity->name . "</a>";
 
-$rm_url = elgg_add_action_tokens_to_url($CONFIG->wwwroot.'action/group_operators/remove?mygroup='.$group->guid.'&who='.$entity->guid);
-$mo_url = elgg_add_action_tokens_to_url($CONFIG->wwwroot.'action/group_operators/mkowner?mygroup='.$group->guid.'&who='.$entity->guid);
-
-if($entity->guid != $group->owner_guid){
-	$content = "<a href=\"{$rm_url}\">".elgg_echo('group_operators:operators:drop')."</a>";
-	if(elgg_get_logged_in_user_guid() == $group->owner_guid){// || elgg_is_admin_logged_in()){
-		$content .= " | <a href=\"{$mo_url}\">".elgg_echo('group_operators:owner:make')."</a>";
-	}
-}
-else {
-	$content = elgg_echo('group_operators:owner');
-}
+$metadata = elgg_view_menu('entity', array(
+	'entity' => $vars['entity'],
+	'handler' => 'group_operators',
+	'sort_by' => 'priority',
+	'class' => 'elgg-menu-hz',
+));
 
 $params = array(
 	'entity' => $entity,
+	'metadata' => $metadata,
 	'title' => $title,
-	'content' => $content
 );
 
 
