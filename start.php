@@ -43,25 +43,26 @@ function group_operators_init() {
 /**
  * Dispatches group operators pages.
  * URLs take the form of
- *  Edit operators:       group_operators/edit
+ *  Edit operators:       group_operators/manage/<group-guid>
  *
  * @param array $page
- * @return NULL
+ * @return bool
  */
 function group_operators_page_handler($page) {
 
 	if (isset($page[0])) {
-		$file_dir = elgg_get_plugins_path() .
-			'group_operators/pages/group_operators';
+		$dir = elgg_get_plugins_path() . 'group_operators/pages/group_operators';
 
 		$page_type = $page[0];
 		switch($page_type) {
 			case 'manage':
 				set_input('group_guid', $page[1]);
-				include "$file_dir/manage.php";
-				break;
+				include "$dir/manage.php";
+				return true;
 		}
 	}
+	
+	return false;
 }
 
 function group_operators_setup_menu() {
