@@ -13,7 +13,6 @@ $catalan = array(
 	"group_operators:title" => 'Operadors de %s',
 	"group_operators:manage" => 'Maneja els operadors del grup',
 	"group_operators:operators" => 'Operadors',
-	"group_operators:members" => 'Membres',
 	
 	/**
 	 * Menus
