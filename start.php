@@ -105,18 +105,18 @@ function group_operators_container_permissions_hook($hook, $entity_type, $return
 function group_operators_entity_menu_setup($hook, $entity_type, $returnvalue, $params) {
 	
 	if (elgg_in_context('widgets')) {
-		return $return;
+		return $returnvalue;
 	}
 
 	$entity = $params['entity'];
 	$handler = elgg_extract('handler', $params, false);
 	if ($handler != 'group_operators') {
-		return $return;
+		return $returnvalue;
 	}
 
-	foreach ($return as $index => $item) {
+	foreach ($returnvalue as $index => $item) {
 		if (in_array($item->getName(), array('access', 'likes', 'edit', 'delete'))) {
-			unset($return[$index]);
+			unset($returnvalue[$index]);
 		}
 	}
 	
@@ -134,7 +134,7 @@ function group_operators_entity_menu_setup($hook, $entity_type, $returnvalue, $p
 			'priority' => 300,
 			'is_action' => true
 		);
-		$return[] = ElggMenuItem::factory($options);
+		$returnvalue[] = ElggMenuItem::factory($options);
 		
 		if(elgg_get_logged_in_user_guid() == $group->owner_guid || elgg_is_admin_logged_in()){
 			$options = array(
@@ -147,7 +147,7 @@ function group_operators_entity_menu_setup($hook, $entity_type, $returnvalue, $p
 				'priority' => 300,
 				'is_action' => true
 			);
-			$return[] = ElggMenuItem::factory($options);
+			$returnvalue[] = ElggMenuItem::factory($options);
 			
 		}
 	} else {
@@ -157,9 +157,9 @@ function group_operators_entity_menu_setup($hook, $entity_type, $returnvalue, $p
 			'href' => false,
 		);
 		
-		$return[] = ElggMenuItem::factory($options);
+		$returnvalue[] = ElggMenuItem::factory($options);
 	}
 
-	return $return;
+	return $returnvalue;
 }
 
