@@ -26,6 +26,8 @@ function group_operators_init() {
 	elgg_register_action("group_operators/add", "$action_path/add.php");
 	elgg_register_action("group_operators/remove", "$action_path/remove.php");
 	elgg_register_action("group_operators/mkowner", "$action_path/change_owner.php");
+	$action_path = elgg_get_plugins_path() . 'group_operators/actions/groups';
+	elgg_register_action("groups/delete", "$action_path/delete.php");
 
 	// Register plugin hooks
 	elgg_register_plugin_hook_handler('permissions_check', 'group', 'group_operators_permissions_hook');
@@ -33,6 +35,7 @@ function group_operators_init() {
 
 	// Extend the forms css view
 	elgg_extend_view('css/elements/forms', 'group_operators/css/forms');
+	elgg_extend_view('js/elgg', 'group_operators/js');
 
 	// Register javascript needed for adding operators
 	elgg_register_js('jquery-combobox', 'mod/group_operators/vendors/jquery/combobox.js');
