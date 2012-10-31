@@ -47,6 +47,7 @@ function group_operators_init() {
  * Dispatches group operators pages.
  * URLs take the form of
  *  Edit operators:       group_operators/manage/<group-guid>
+ *  List operated groups: group_operators/owner/<username>
  *
  * @param array $page
  * @return bool
@@ -62,6 +63,10 @@ function group_operators_page_handler($page) {
 				set_input('group_guid', $page[1]);
 				include "$dir/manage.php";
 				return true;
+			case 'owner':
+				elgg_set_context('groups');
+				include "$dir/owner.php";
+				return true;
 		}
 	}
 	
@@ -72,6 +77,13 @@ function group_operators_setup_menu() {
 
 	// Get the page owner entity
 	$page_owner = elgg_get_page_owner_entity();
+
+	if (elgg_is_menu_item_registered('page', 'groups:owned')) {
+		$user = elgg_get_logged_in_user_entity();
+		$url =  "group_operators/owner/$user->username";
+		$item = new ElggMenuItem('groups:owned', elgg_echo('groups:owned'), $url);
+		elgg_register_menu_item('page', $item);
+	}
 
 	if (elgg_in_context('groups')) {
 		if ($page_owner instanceof ElggGroup) {
