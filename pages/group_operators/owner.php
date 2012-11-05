@@ -27,7 +27,6 @@ $groups_i_operate_params = array(
 	'type' => 'group',
 	'relationship' => 'operator',
 	'relationship_guid' => $page_owner->guid,
-	'full_view' => false,
 );
 
 $groups_i_own_count = elgg_get_entities($groups_i_own_params + array(
