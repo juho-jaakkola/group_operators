@@ -6,8 +6,6 @@
 	$who = get_entity($who_guid);
 	if ($mygroup instanceof ElggGroup && ($mygroup->owner_guid == elgg_get_logged_in_user_guid() || elgg_is_admin_logged_in())) {
 		
-		// Owner is now a simple operator
-		
 		if (!check_entity_relationship($mygroup->owner_guid, 'operator', $mygroup_guid)) {
 			add_entity_relationship($mygroup->owner_guid, 'operator', $mygroup_guid);
 		}
@@ -29,9 +27,10 @@
 		}
 		
 		// Finally, we change the owner
-		
+		$previous_access = elgg_set_ignore_access(true);
 		$mygroup->owner_guid = $who_guid;
 		$mygroup->save();
+		elgg_set_ignore_access($previous_access);
 		
 		system_message(elgg_echo('group_operators:owner_changed', array($who->name)));
 	} else {
