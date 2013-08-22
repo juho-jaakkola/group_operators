@@ -1,6 +1,8 @@
 <?php
 /**
  * Delete a group
+ * 
+ * @override mod/group_operators/actions/groups/delete.php
  */
 		
 $guid = (int) get_input('guid');
