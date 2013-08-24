@@ -2,7 +2,7 @@
 /**
  * Delete a group
  * 
- * @override mod/group_operators/actions/groups/delete.php
+ * @override mod/groups/actions/groups/delete.php
  */
 		
 $guid = (int) get_input('guid');
