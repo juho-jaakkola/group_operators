@@ -1,5 +1,4 @@
 <?php
-	action_gatekeeper();
 	$mygroup_guid = get_input('mygroup');
 	$who_guid = get_input('who');
 	$mygroup = get_entity($mygroup_guid);
@@ -10,7 +9,7 @@
 			add_entity_relationship($mygroup->owner_guid, 'operator', $mygroup_guid);
 		}
 		
-		// We also change icons owner
+		// We also change icons' owner
 		
 		$old_filehandler = new ElggFile();
 		$old_filehandler->owner_guid = $group->owner_guid;
@@ -23,7 +22,9 @@
 		$new_path = $new_filehandler->getFilenameOnFilestore();
 		
 		foreach(array('', 'tiny', 'small', 'medium', 'large') as $size) {
-			rename("$old_path/{$mygroup_guid}{$size}.jpg", "$new_path/{$mygroup_guid}{$size}.jpg");
+            if (file_exists("$old_path/{$mygroup_guid}{$size}.jpg")) {
+			    rename("$old_path/{$mygroup_guid}{$size}.jpg", "$new_path/{$mygroup_guid}{$size}.jpg");
+            }
 		}
 		
 		// Finally, we change the owner

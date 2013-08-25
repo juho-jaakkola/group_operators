@@ -20,6 +20,8 @@ function group_operators_init() {
 	elgg_register_event_handler('pagesetup', 'system', 'group_operators_setup_menu');
 	
 	elgg_register_plugin_hook_handler('register', 'menu:entity', 'group_operators_entity_menu_setup');
+    
+    elgg_set_config('disable_group_owner_change_from_form', true);
 
 	// Register actions
 	$action_path = elgg_get_plugins_path() . 'group_operators/actions/group_operators';

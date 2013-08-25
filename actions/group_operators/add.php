@@ -5,7 +5,6 @@
  * @package ElggGroupOperators
  */
 
-action_gatekeeper();
 $mygroup = get_entity(get_input('mygroup'));
 $who = get_entity(get_input('who'));
 
@@ -22,4 +21,3 @@ if ($mygroup instanceof ElggGroup && $who instanceof ElggUser && $mygroup->canEd
 }
 
 forward(REFERER);
-?>
