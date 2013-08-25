@@ -2,13 +2,13 @@
 <plugin_manifest xmlns="http://www.elgg.org/plugin_manifest/1.8">
 	<name>Group Operators</name>
 	<author>Lorea</author>
-	<version>1.3.2</version>
+	<version>1.3.3</version>
 	<category>lorea</category>
 	<category>admin</category>
 	<category>enhancement</category>
 	<description>Allows to have several group operators</description>
 	<website>https://lorea.org/plugins/group_operators</website>
-	<copyright>2012 Lorea Faeries &lt;federation@lorea.org&gt;</copyright>
+	<copyright>(C) 2012-2013 Lorea Faeries &lt;federation@lorea.org&gt;</copyright>
 	<license>GNU Affero General Public License version 3, or later</license>
 	<requires>
 		<type>elgg_release</type>
