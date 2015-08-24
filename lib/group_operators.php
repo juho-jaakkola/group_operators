@@ -55,7 +55,7 @@ function elgg_view_group_operators_list($group) {
  */
 function group_operators_prepare_form_vars($group) {
 
-	$members = $group->getMembers(0);
+	$members = $group->getMembers(array('limit' => false));
 	$operators = get_group_operators($group);
 	$no_operators = array_obj_diff($members, $operators);
 
