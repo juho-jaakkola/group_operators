@@ -5,7 +5,7 @@
  * @package ElggGroupOperators
  */
 
-$english = array(
+return array(
 
 	/**
 	 * Titles
@@ -40,5 +40,3 @@ $english = array(
 	"group_operators:error:already_operator" => '%s is already an operator in %s',
 
 );
-
-add_translation("en", $english);
