@@ -19,7 +19,6 @@ return array(
 	 */
 	"group_operators:operators:drop" => 'Saca privilegios',
 	"group_operators:owner" => 'Es el propietario',
-	"group_operators:owner:make" => 'Haz propietario',
 
 	/**
 	 * Form fields
@@ -33,8 +32,6 @@ return array(
 	 */
 	"group_operators:added" => '%s ha sido añadido satisfactoriamente como operador del grupo',
 	"group_operatros:add:error" => 'Ha sido imposible añadir %s como operador del grupo',
-	"group_operators:owner_changed" => '%s es el nuevo propietario',
-	"group_operators:change_owner:error" => 'Sólo el propietario del grupo puede asignar un nuevo propietario',
 	"group_operators:removed" => 'El operador ha sido borrado satisfactoriamente',
 
 );

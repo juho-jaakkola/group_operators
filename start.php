@@ -18,16 +18,13 @@ function group_operators_init() {
 	elgg_register_page_handler('group_operators', 'group_operators_page_handler');
 
 	elgg_register_event_handler('pagesetup', 'system', 'group_operators_setup_menu');
-	
+
 	elgg_register_plugin_hook_handler('register', 'menu:entity', 'group_operators_entity_menu_setup');
-    
-    elgg_set_config('disable_group_owner_change_from_form', true);
 
 	// Register actions
 	$action_path = elgg_get_plugins_path() . 'group_operators/actions/group_operators';
 	elgg_register_action("group_operators/add", "$action_path/add.php");
 	elgg_register_action("group_operators/remove", "$action_path/remove.php");
-	elgg_register_action("group_operators/mkowner", "$action_path/change_owner.php");
 	$action_path = elgg_get_plugins_path() . 'group_operators/actions/groups';
 	elgg_register_action("groups/delete", "$action_path/delete.php");
 
@@ -71,7 +68,7 @@ function group_operators_page_handler($page) {
 				return true;
 		}
 	}
-	
+
 	return false;
 }
 
@@ -120,7 +117,7 @@ function group_operators_container_permissions_hook($hook, $entity_type, $return
  * Add links/info to entity menu particular to group operator entities
  */
 function group_operators_entity_menu_setup($hook, $entity_type, $returnvalue, $params) {
-	
+
 	if (elgg_in_context('widgets')) {
 		return $returnvalue;
 	}
@@ -136,11 +133,10 @@ function group_operators_entity_menu_setup($hook, $entity_type, $returnvalue, $p
 			unset($returnvalue[$index]);
 		}
 	}
-	
+
 	$group = elgg_get_page_owner_entity();
 
 	if ($entity->guid != $group->owner_guid) {
-		
 		$options = array(
 			'name' => 'drop_privileges',
 			'text' => elgg_echo('group_operators:operators:drop'),
@@ -152,28 +148,13 @@ function group_operators_entity_menu_setup($hook, $entity_type, $returnvalue, $p
 			'is_action' => true
 		);
 		$returnvalue[] = ElggMenuItem::factory($options);
-		
-		if (elgg_get_logged_in_user_guid() == $group->owner_guid || elgg_is_admin_logged_in()) {
-			$options = array(
-				'name' => 'change_owner',
-				'text' => elgg_echo('group_operators:owner:make'),
-				'href' => 'action/group_operators/mkowner?'.http_build_query(array(
-																				'mygroup' => $group->guid,
-																				'who' => $entity->guid,
-																			)),
-				'priority' => 300,
-				'is_action' => true
-			);
-			$returnvalue[] = ElggMenuItem::factory($options);
-			
-		}
 	} else {
 		$options = array(
 			'name' => 'change_owner',
 			'text' => elgg_echo('group_operators:owner'),
 			'href' => false,
 		);
-		
+
 		$returnvalue[] = ElggMenuItem::factory($options);
 	}
 
