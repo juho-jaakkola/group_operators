@@ -25,8 +25,6 @@ function group_operators_init() {
 	$action_path = elgg_get_plugins_path() . 'group_operators/actions/group_operators';
 	elgg_register_action("group_operators/add", "$action_path/add.php");
 	elgg_register_action("group_operators/remove", "$action_path/remove.php");
-	$action_path = elgg_get_plugins_path() . 'group_operators/actions/groups';
-	elgg_register_action("groups/delete", "$action_path/delete.php");
 
 	// Register plugin hooks
 	elgg_register_plugin_hook_handler('permissions_check', 'group', 'group_operators_permissions_hook');
