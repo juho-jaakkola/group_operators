@@ -33,5 +33,6 @@ return array(
 	"group_operators:removed" => 'Poistettiin ylläpito-oikeus',
 	"group_operators:error:membership_required" => 'Käyttäjän täytyy olla ryhmän jäsen',
 	"group_operators:error:already_operator" => '%s on jo ylläpitäjänä ryhmässä %s',
+	"group_operators:error:no_users" => 'Valitse vähintään yksi henkilö',
 
 );

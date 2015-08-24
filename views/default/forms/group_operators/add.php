@@ -5,15 +5,32 @@
  * @package ElggGroupOperators
  */
 
-$group_guid = elgg_extract('entity', $vars)->guid;
-$candidates = elgg_extract('candidates', $vars);
+$group = elgg_extract('entity', $vars);
 
-if (!empty($candidates)) {
-	$body .= '<label for="who">'.elgg_echo('group_operators:new').'</label><br />';
-	$body .= elgg_view('input/combobox', array('name'=>'who','id'=>'who', 'options_values'=>group_operators_prepare_combo_vars($candidates),
-							'style'=>'display:inline', 'title'=>elgg_echo('group_operators:new:instructions')));
-	$body .= elgg_view('input/submit',array('value'=>elgg_echo('group_operators:new:button')));
-	$body .= '<div class="elgg-footer">'.elgg_view('input/hidden', array('name'=>'mygroup', 'value'=>$group_guid)).'</div>';
-	echo $body;
-}
-?>
+$label = elgg_echo('group_operators:new');
+
+$userpicker = elgg_view('input/userpicker', array(
+	'handler' => "group_operators/search/{$group->guid}",
+));
+
+$group_guid = elgg_view('input/hidden', array(
+	'name' => 'group_guid',
+	'value' => $group->guid,
+));
+
+$submit = elgg_view('input/submit', array(
+	'value' => elgg_echo('group_operators:new:button'),
+));
+
+echo <<<HTML
+	<div>
+		<label for="who">$label</label>
+		$userpicker
+		$body
+	</div>
+	<div>
+		$group_guid
+		$submit
+	</div>
+HTML;
+

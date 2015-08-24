@@ -32,6 +32,23 @@ function get_group_operators($group) {
 	}
 }
 
+/**
+ * Get array of group operator GUIDs including the owner
+ *
+ * @param ElggGroup $group
+ * @return array $guids
+ */
+function get_group_operator_guids($group) {
+	$operators = get_group_operators($group);
+
+	$guids = array();
+	foreach ($operators as $user) {
+		$guids[] = $user->guid;
+	}
+
+	return $guids;
+}
+
 function elgg_view_group_operators_list($group) {
 	$operators = get_group_operators($group);
 	$html = '<ul class="elgg-list">';
@@ -54,53 +71,10 @@ function elgg_view_group_operators_list($group) {
  * @return array
  */
 function group_operators_prepare_form_vars($group) {
-
-	$members = $group->getMembers(array('limit' => false));
-	$operators = get_group_operators($group);
-	$no_operators = array_obj_diff($members, $operators);
-
 	// input names => defaults
 	$values = array(
 		'entity' => $group,
-		'candidates' => $no_operators
 	);
 
 	return $values;
-}
-
-/**
- * Prepare the manage form variables
- *
- * @param array $candidates Candidate entities
- * @return array guids => 'name - username'
- */
-function group_operators_prepare_combo_vars($candidates) {
-	$values = array('' => elgg_echo('group_operators:selectone'));
-	foreach ($candidates as $candidate) {
-		$values[$candidate->guid] = $candidate->name." - ".$candidate->username;
-	}
-	return $values;
-}
-
-/**
- * array_diff doesn't work with arrays of objects because it compares the
- * string-represantation of the arguments (which is always "Object" for an object).
- */
-function array_obj_diff ($array1, $array2) {
-
-    foreach ($array1 as $key => $value) {
-        $array1[$key] = serialize ($value);
-    }
-
-    foreach ($array2 as $key => $value) {
-        $array2[$key] = serialize ($value);
-    }
-
-    $array_diff = array_diff ($array1, $array2);
-
-    foreach ($array_diff as $key => $value) {
-        $array_diff[$key] = unserialize ($value);
-    }
-
-    return $array_diff;
 }

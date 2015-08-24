@@ -29,15 +29,6 @@ function group_operators_init() {
 	// Register plugin hooks
 	elgg_register_plugin_hook_handler('permissions_check', 'group', 'group_operators_permissions_hook');
 	elgg_register_plugin_hook_handler('container_permissions_check', 'group', 'group_operators_container_permissions_hook');
-
-	// Extend the forms css view
-	elgg_extend_view('css/elements/forms', 'group_operators/css/forms');
-	elgg_extend_view('js/elgg', 'group_operators/js');
-
-	// Register javascript needed for adding operators
-	elgg_register_js('jquery-combobox', 'mod/group_operators/vendors/jquery/combobox.js');
-	elgg_register_css('jquery-ui-buttons', 'mod/group_operators/vendors/jquery/jquery.ui.button.css');
-	elgg_register_css('jquery-ui-theme', 'mod/group_operators/vendors/jquery/jquery.ui.theme.css');
 }
 
 /**
@@ -45,6 +36,7 @@ function group_operators_init() {
  * URLs take the form of
  *  Edit operators:       group_operators/manage/<group-guid>
  *  List operated groups: group_operators/owner/<username>
+ *  Search members:       group_operators/search/<guid>
  *
  * @param array $page
  * @return bool
@@ -63,6 +55,14 @@ function group_operators_page_handler($page) {
 			case 'owner':
 				elgg_set_context('groups');
 				include "$dir/owner.php";
+				return true;
+			case 'search':
+				elgg_load_library('elgg:group_operators');
+
+				$search = new \GroupOperators\LiveSearch;
+
+				header("Content-Type: application/json");
+				echo $search->find($page[1]);
 				return true;
 		}
 	}

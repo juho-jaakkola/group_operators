@@ -5,24 +5,38 @@
  * @package ElggGroupOperators
  */
 
-$mygroup = get_entity(get_input('mygroup'));
-$who = get_entity(get_input('who'));
+$group = get_entity(get_input('group_guid'));
+$members = get_input('members');
 
-$success = false;
-if ($mygroup instanceof ElggGroup && $who instanceof ElggUser && $mygroup->canEdit()) {
-	if (!$mygroup->isMember($who)) {
-		register_error(elgg_echo('group_operators:error:membership_required'));
-		forward(REFERER);
-	}
+if (!$group instanceof ElggGroup) {
+	register_error(elgg_echo('groups:notfound'));
+	forward(REFERER);
+}
 
-	if (check_entity_relationship($who->guid, 'operator', $mygroup->guid)) {
-		register_error(elgg_echo('group_operators:error:already_operator', array($who->name, $group->name)));
-	} else {
-		add_entity_relationship($who->guid, 'operator', $mygroup->guid);
-		system_message(elgg_echo('group_operators:added', array($who->name, $group->name)));
-	}
-} else {
+if (empty($members)) {
+	register_error(elgg_echo('group_operators:error:no_users'));
+	forward(REFERER);
+}
+
+if (!$group->canEdit()) {
 	register_error(elgg_echo('groups:permissions:error'));
+	forward(REFERER);
+}
+
+foreach ($members as $member_guid) {
+	$user = get_user($member_guid);
+
+	if (!$group->isMember($user)) {
+		register_error(elgg_echo('group_operators:error:membership_required'));
+		continue;
+	}
+
+	if (check_entity_relationship($user->guid, 'operator', $group->guid)) {
+		register_error(elgg_echo('group_operators:error:already_operator', array($user->name, $group->name)));
+	} else {
+		add_entity_relationship($user->guid, 'operator', $group->guid);
+		system_message(elgg_echo('group_operators:added', array($user->name, $group->name)));
+	}
 }
 
 forward(REFERER);

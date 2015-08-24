@@ -35,5 +35,6 @@ return array(
 	"group_operators:removed" => 'Operator successfully removed',
 	"group_operators:error:membership_required" => 'User has to be a member of the group',
 	"group_operators:error:already_operator" => '%s is already an operator in %s',
+	"group_operators:error:no_users" => 'Select at least one user',
 
 );
