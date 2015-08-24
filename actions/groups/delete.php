@@ -1,10 +1,10 @@
 <?php
 /**
  * Delete a group
- * 
+ *
  * @override mod/groups/actions/groups/delete.php
  */
-		
+
 $guid = (int) get_input('guid');
 if (!$guid) {
 	// backward compatible

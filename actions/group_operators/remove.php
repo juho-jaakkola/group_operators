@@ -1,7 +1,7 @@
 <?php
 /**
  * Group operators remove action
- * 
+ *
  * @package ElggGroupOperators
  */
 $mygroup_guid = get_input('mygroup');

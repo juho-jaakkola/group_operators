@@ -87,7 +87,7 @@ function group_operators_prepare_combo_vars($candidates) {
  * string-represantation of the arguments (which is always "Object" for an object).
  */
 function array_obj_diff ($array1, $array2) {
-   
+
     foreach ($array1 as $key => $value) {
         $array1[$key] = serialize ($value);
     }
@@ -95,12 +95,12 @@ function array_obj_diff ($array1, $array2) {
     foreach ($array2 as $key => $value) {
         $array2[$key] = serialize ($value);
     }
-   
+
     $array_diff = array_diff ($array1, $array2);
-   
+
     foreach ($array_diff as $key => $value) {
         $array_diff[$key] = unserialize ($value);
     }
-   
+
     return $array_diff;
 }
