@@ -17,9 +17,8 @@ function group_operators_init() {
 	// Register a page handler, so we can have nice URLs
 	elgg_register_page_handler('group_operators', 'group_operators_page_handler');
 
-	elgg_register_event_handler('pagesetup', 'system', 'group_operators_setup_menu');
-
 	elgg_register_plugin_hook_handler('register', 'menu:entity', 'group_operators_entity_menu_setup');
+	elgg_register_plugin_hook_handler('register', 'menu:page', 'group_operators_page_menu_setup');
 
 	// Register actions
 	$action_path = elgg_get_plugins_path() . 'group_operators/actions/group_operators';
@@ -70,11 +69,22 @@ function group_operators_page_handler($page) {
 	return false;
 }
 
-function group_operators_setup_menu() {
+/**
+ * Add items to the page menu on group's profile page
+ *
+ * @param string $hook
+ * @param string $type
+ * @param array  $menu
+ * @param array  $params
+ * @return array $menu
+ */
+function group_operators_page_menu_setup($hook, $type, $menu, $params) {
+	if (!elgg_is_logged_in()) {
+		return $menu;
+	}
 
-	// Get the page owner entity
-	$page_owner = elgg_get_page_owner_entity();
-
+	// Overwrite link to default "My groups" listing with a link
+	// to a list of groups where user is also an operator.
 	if (elgg_is_menu_item_registered('page', 'groups:owned')) {
 		$user = elgg_get_logged_in_user_entity();
 		$url =  "group_operators/owner/$user->username";
@@ -82,18 +92,28 @@ function group_operators_setup_menu() {
 		elgg_register_menu_item('page', $item);
 	}
 
-	if (elgg_in_context('groups')) {
-		if ($page_owner instanceof ElggGroup) {
-			if (elgg_is_logged_in() && $page_owner->canEdit()) {
-				$url = elgg_get_site_url() . "group_operators/manage/{$page_owner->getGUID()}";
-				elgg_register_menu_item('page', array(
-					'name' => 'edit',
-					'text' => elgg_echo('group_operators:manage'),
-					'href' => $url,
-				));
-			}
-		}
+	if (!elgg_in_context('groups')) {
+		return $menu;
 	}
+
+	$page_owner = elgg_get_page_owner_entity();
+
+	if (!$page_owner instanceof ElggGroup) {
+		return $menu;
+	}
+
+	if (!$page_owner->canEdit()) {
+		return $menu;
+	}
+
+	// Link to group operator management page
+	$menu[] = ElggMenuItem::factory(array(
+		'name' => 'manage',
+		'text' => elgg_echo('group_operators:manage'),
+		'href' => "group_operators/manage/{$page_owner->guid}",
+	));
+
+	return $menu;
 }
 
 function group_operators_permissions_hook($hook, $entity_type, $returnvalue, $params) {
