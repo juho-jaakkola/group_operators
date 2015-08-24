@@ -8,7 +8,7 @@
 elgg_load_library('elgg:group_operators');
 
 $group_guid = (int) get_input('group_guid');
-$group = new ElggGroup($group_guid);
+$group = get_entity($group_guid);
 if (!$group) {
 	forward();
 }
