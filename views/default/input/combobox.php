@@ -18,7 +18,7 @@
 
 echo elgg_view('input/dropdown',$vars);
 
-if($vars['id']):
+if ($vars['id']):
 	elgg_load_js('jquery-combobox');
 	elgg_load_css('jquery-ui-buttons');
 	elgg_load_css('jquery-ui-theme');

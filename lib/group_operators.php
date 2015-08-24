@@ -76,7 +76,7 @@ function group_operators_prepare_form_vars($group) {
  */
 function group_operators_prepare_combo_vars($candidates) {
 	$values = array('' => elgg_echo('group_operators:selectone'));
-	foreach($candidates as $candidate){
+	foreach ($candidates as $candidate) {
 		$values[$candidate->guid] = $candidate->name." - ".$candidate->username;
 	}
 	return $values;

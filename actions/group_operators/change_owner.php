@@ -21,7 +21,7 @@
 		$new_filehandler->setFilename('groups');
 		$new_path = $new_filehandler->getFilenameOnFilestore();
 		
-		foreach(array('', 'tiny', 'small', 'medium', 'large') as $size) {
+		foreach (array('', 'tiny', 'small', 'medium', 'large') as $size) {
             if (file_exists("$old_path/{$mygroup_guid}{$size}.jpg")) {
 			    rename("$old_path/{$mygroup_guid}{$size}.jpg", "$new_path/{$mygroup_guid}{$size}.jpg");
             }
