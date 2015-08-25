@@ -61,7 +61,7 @@ function group_operators_page_handler($page) {
 				$search = new \GroupOperators\LiveSearch;
 
 				header("Content-Type: application/json");
-				echo $search->find($page[1]);
+				echo json_encode($search->find($page[1]));
 				return true;
 		}
 	}

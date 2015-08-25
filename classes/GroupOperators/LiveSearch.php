@@ -11,7 +11,7 @@ class LiveSearch {
 	 * /group_operators/search/<group_guid>
 	 *
 	 * @param int $group_guid
-	 * @return string JSON string is returned and then exit
+	 * @return array
 	 */
 	public function find($group_guid) {
 		// Return results only to logged in users
@@ -29,7 +29,7 @@ class LiveSearch {
 
 		if (!$group instanceof \ElggGroup) {
 			elgg_log("Group operators: not able to find group $group_guid");
-			exit;
+			return array();
 		}
 
 		// Get list of existing group operators
@@ -51,7 +51,7 @@ class LiveSearch {
 		));
 
 		if (empty($members)) {
-			exit;
+			return array();
 		}
 
 		$results = array();
@@ -88,6 +88,6 @@ class LiveSearch {
 
 		ksort($results);
 
-		return json_encode(array_values($results));
+		return array_values($results);
 	}
 }
